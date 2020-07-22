@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'un job{% endblock %}
+
+{% block body %}
+
+{# JOB FORM #}
+<div class="container col-12">
+    <div class="row col-12">
+        {{ form_start(formJob, { attr: { class: 'log-form col-4'}}) }}
+
+        <label for="inputJobName">Nom</label>
+        {{ form_widget(formJob.name, { attr: {  
+                    autofocus: true,
+                    id: "inputJobName",
+                    class: "form-control"
+                }}) }}
+
+        <label for="inputJobDepartment">Département</label>
+        {{ form_widget(formJob.department, { attr: {  
+                    autofocus: true,
+                    id: "inputJobDepartment",
+                    class: "form-control"
+                }}) }}
+
+        {{ form_widget(formJob.send, { attr: {
+                    class: "btn btn-lg btn-dark log-form-btn col-12"
+                }}) }}
+
+        {{ form_end(formJob) }}
+    </div>
+</div>
+{% endblock %}

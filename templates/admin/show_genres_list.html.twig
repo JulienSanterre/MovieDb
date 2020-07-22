@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Genres -
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container col-12">
+        <div class="row margin-top-phone">
+            <div class="col-12">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Date de création</th>
+                            <th scope="col">Dernière modification</th>
+                            {% if is_granted("ROLE_ADMIN") %}
+                            <th scope="col">Edition</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for genre in genres %}
+                            <tr>
+                                <th scope="row">
+                                    <a href="{{ path('genre_show', {'apiId': genre.apiId}) }}">
+                                        {{ genre.name }}
+                                    </a>
+                                </th>
+                                <td>{{ genre.createdAt|date('d/m/Y') }}</td>
+                                <td>{{ genre.updatedAt|date('d/m/Y') }}</td>
+                                {% if is_granted("ROLE_ADMIN") %}
+                                <td>
+                                    <a href="{{ path('genre_edit', {'apiId': genre.apiId}) }}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="{{ path('genre_deleteId', {'apiId': genre.apiId}) }}">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Interprète : {{ person.name }}{% endblock %}
+
+{% block body %}
+    <div class="container col-12 col-lg-6 text-center left-single-movie float-left">
+        <div class="row ">  
+            <div class="col-md-12 mx-auto single-movie-bloc">
+                <div class="card-block col-8 text-center card-block-single-movie">
+                    <div class="phone margin-top-phone">
+                        {% if PosterExists | default (false)%}
+                            <img src="/uploads/posters/{{ movie.id }}.jpeg" alt={{ movie.title }}></img>
+                        {% else %}
+                            <img src="{{ person.picture }}" alt={{ person.name }}></img>
+                        {% endif %}
+                    </div>
+                    <h3 class="spacing-subtitle">{{ person.name }}</h3>
+                    <div class="star-person">
+                    {% for rate in 0..10 %}
+                        {% if person.popularity > rate %}
+                            <img class="rate-star" src="/img/Download-Gold-Star-Sticker-PNG-File.png"></img>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                    {% if person.birthday != NULL %}<p>Née le {{ person.birthday|date('d/m/Y')}}</p>{% endif %}
+                    {% if person.placeOfBirthday != NULL %}<p>Née à {{ person.placeOfBirthday }} </p>{% endif %}
+                    {% if person.deathday != NULL %}<p>Mort le :  {{ person.deathday|date('d/m/Y') }} </p>{% endif %}
+                    <p>{{ person.biography }}</p>
+                    {% if castings != NULL %}
+                        <div class="card-body-2">
+                            <h3 class="spacing-subtitle">Casting</h3>
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ordre du générique</th>
+                                        <th scope="col">Film</th>
+                                        <th scope="col">Rôle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for casting in castings %}
+                                        {% if casting.role != NULL %} 
+                                            <tr>
+                                                <th scope="row" class="th-person">
+                                                    {{ casting.creditOrder }}
+                                                </th>
+                                                <td class="th-person">
+                                                    <a href="{{ path('movie_show', { 'id': casting.movie.id }) }}" class="badge person-badge col-3 text-center"> {{ casting.movie.title }}</a>
+                                                </td>
+                                                <td>
+                                                    {{ casting.role }}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                    {% if teams != NULL %}
+                        <div class="card-body-2">
+                            <h3 class="spacing-subtitle">Equipes</h3>
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Equipe</th>
+                                        <th scope="col">Métier</th>
+                                        <th scope="col">Film</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for team in teams %}
+                                        <tr>
+                                            <th scope="row">
+                                                {{ team.job.department.name }}
+                                            </th>
+                                            <td>
+                                                {{ team.job.name }}
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('movie_show', { 'id': team.movie.id }) }}" class="badge col-3 text-center"> {{ team.movie.title }}</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>  
+            </div>
+                        
+            <div class="computer">
+                <div class="col-md-6 single-movie-picture card-img-bottom">
+                    {% if PosterExists | default (false)%}
+                        <img src="/uploads/posters/{{ movie.id }}.jpeg" alt={{ movie.title }}></img>
+                    {% else %}
+                        <img src="{{ person.picture }}" alt={{ person.name }}></img>
+                    {% endif %}
+                </div>
+            </div>
+            <a href="{{ path('person_list_show') }}" class="previous-link col-12 text-center">Liste des interpretes</a>
+        </div>
+    </div>
+
+{% endblock %}

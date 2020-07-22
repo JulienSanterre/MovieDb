@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Films -
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+{% set genreID = 0 %}
+{% for genre in genres %}
+{% set movies = genre.movies %}
+{% if movies|length > 0 %}
+<div class="title-carroussel" >{{ genre.name }}</div>
+<div class="bd-example">
+  <div id="carouselExampleCaptions-{{ genreID }}" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+      {% set firstMovie = movies[0] %}
+        <a href="{{ path('movie_show', {'id': firstMovie.id}) }}"><img src="{{ firstMovie.picture }}" class="d-block w-100" alt="{{ firstMovie.title }}"></a>
+        <div class="carousel-caption d-none d-md-block carousel-text-top">
+            <h5>{{ firstMovie.title }}</h5>
+        </div>
+        <div class="carousel-caption d-none d-md-block carousel-text-bottom">
+            <p>{{ firstMovie.overview }}</p>
+        </div>
+      </div>
+      {% set counter = 0 %}
+      {% for movie in genre.movies %}
+        {% if counter > 1 %}
+        <div class="carousel-item">
+            <a href="{{ path('movie_show', {'id': movie.id}) }}"><img src="{{ movie.picture }}" class="d-block w-100" alt="{{ movie.title }}"></a>
+            <div class="carousel-caption d-none d-md-block  carousel-text-top">
+                <h5>{{ movie.title }}</h5>
+            </div>
+            <div class="carousel-caption d-none d-md-block carousel-text-bottom">
+                <p>{{ movie.overview }}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% set counter = counter + 1 %}
+      {% endfor %}
+    <a class="carousel-control-prev {{ genreID }}" href="#carouselExampleCaptions-{{ genreID }}" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next {{ genreID }}" href="#carouselExampleCaptions-{{ genreID }}" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% set genreID = genreID + 1 %}
+{% endfor %}
+
+{% endblock %}

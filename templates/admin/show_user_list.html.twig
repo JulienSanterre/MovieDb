@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs - {{ parent() }} {% endblock %}
+
+{% block body %}
+<div class="row margin-top-phone">
+    <div class="col-12">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+            <th scope="row">{{ user.username }}</th>
+            <td>
+                <a href="{{ path('admin_user_edit', {'id': user.id}) }}">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}MovieDB{% endblock %}
+        </title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ url('main') }}css/style.css">
+            <link href="https://fonts.googleapis.com/css?family=Lemon&display=swap" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <nav class="navbar sticky-top navbar-dark navbar-expand-xl">
+        <!-- Navbar content -->
+        <button class="nav-link navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" id="navbarSupportedContent">
+            <a class="navbar-brand" href="{{ path('main')}}">O'MovieDb</a>
+            <li class="nav-item {% if app.request.attributes.get('_route') == 'main' %} active {% endif %}">
+                <a class="nav-link" href="{{ path('main')}}">Acceuil</a>
+            </li>
+            <li class="nav-item
+                    {% if app.request.attributes.get('_route') == 'movie_list_show' %} active {% endif %}
+                    {% if app.request.attributes.get('_route') == 'movie_show' %} active {% endif %}">
+                {% if is_granted("ROLE_ADMIN") %}
+                    <a class="nav-link" href="{{ path('movie_list_show')}}">Films</a>
+                {% else %}
+                    <a class="nav-link" href="{{ path('test_show')}}">Films</a>
+                {% endif %}
+            </li>
+            <li class="nav-item
+                    {% if app.request.attributes.get('_route') == 'genre_list_show' %} active {% endif %}
+                    {% if app.request.attributes.get('_route') == 'genre_show' %} active {% endif %}">
+                <a class="nav-link" href="{{ path('genre_list_show')}}">Genres</a>
+            </li>
+            <li class="nav-item
+                    {% if app.request.attributes.get('_route') == 'person_list_show' %} active {% endif %}
+                    {% if app.request.attributes.get('_route') == 'person_show' %} active {% endif %}">
+                <a class="nav-link" href="{{ path('person_list_show')}}">Interprete</a>
+            </li>
+            {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item
+                        {% if app.request.attributes.get('_route') == 'job_list_show' %} active {% endif %}
+                        {% if app.request.attributes.get('_route') == 'job_show' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('job_list_show')}}">Equipes</a>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item
+                        {% if app.request.attributes.get('_route') == 'casting_list_show' %} active {% endif %}
+                        {% if app.request.attributes.get('_route') == 'casting_show' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('casting_list_show')}}">Casting</a>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item
+                        {% if app.request.attributes.get('_route') == 'department_list_show' %} active {% endif %}
+                        {% if app.request.attributes.get('_route') == 'department_show' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('department_list_show')}}">Département</a>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item
+                        {% if app.request.attributes.get('_route') == 'team_list_show' %} active {% endif %}
+                        {% if app.request.attributes.get('_route') == 'team_show' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('team_list_show')}}">Métier</a>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item dropdown {% if app.request.attributes.get('_route') == 'admin' %} active {% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin{{ encore_entry_link_tags('app') }}</a>
+                </li>
+            {% endif %}
+            {% if app.user is empty %}
+                <li class="nav-item phone">
+                    <button type="button nav-link" class="btn btn-sm log-btn">
+                        <a class="nav-link connect" href="{{ path('app_login')}}">Connexion</a>
+                    </button>
+                </li>
+            {% else %}
+                <li class="nav-item phone">
+                    <button type="button nav-link" class="btn btn-sm log-btn">
+                        <a class="nav-link connect" href="{{ path('app_logout')}}">Déconnexion</a>
+                    </button>
+                </li>
+            {% endif %}
+            </div>
+        </ul>
+        {% if app.user is empty %}
+        <ul class="navbar-nav ml-auto computer">
+            <li class="nav-item">
+                <button type="button" class="btn btn-sm log-btn">
+                    <a class="nav-link" href="{{ path('app_login')}}">Connexion</a>
+                </button>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav ml-auto computer">
+            <li class="nav-item">
+                <button type="button" class="btn btn-sm log-btn">
+                    <a class="nav-link" href="{{ path('app_logout')}}">Déconnexion</a>
+                </button>
+            </li>
+        </ul>
+        {% endif %}
+    </nav>
+    <div class="nav-spacer"></div>
+    <body>
+        <main>
+            {% block body %}{% endblock %}
+            <div class="container">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </main>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        {% endblock %}
+    </body>
+    <div class="nav-spacer-bot"></div>
+</html>

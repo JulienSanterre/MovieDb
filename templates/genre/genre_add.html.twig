@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'un genre{% endblock %}
+
+{% block body %}
+
+{# GENRE FORM #}
+<div class="container col-12">
+    <div class="row col-12">
+        {{ form_start(formGenre, { attr: { class: 'log-form col-4'}}) }}
+
+        <label for="inputGenreName">Nom</label>
+        {{ form_widget(formGenre.name, { attr: {  
+                    autofocus: true,
+                    id: "inputGenreName",
+                    class: "form-control"
+                }}) }}
+
+        {{ form_widget(formGenre.send, { attr: {
+                    class: "btn btn-lg btn-dark log-form-btn col-12"
+                }}) }}
+
+        {{ form_end(formGenre) }}
+    </div>
+</div>
+{% endblock %}

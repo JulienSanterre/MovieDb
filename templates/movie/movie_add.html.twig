@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouts d'un Film{% endblock %}
+
+{% block body %}
+
+{# MOVIE FORM #}
+<div class="container col-12">
+    <div class="row col-12">
+        {{ form_start(formMovie, { attr: { class: 'log-form col-8 col-4-lg'}}) }}
+
+        <label for="inputMovieTitle">Film</label>
+        {{ form_widget(formMovie.title, { attr: {  
+                    autofocus: true,
+                    id: "inputMovieTitle",
+                    class: "form-control"
+                }}) }}
+        {{ form_widget(formMovie.send, { attr: {
+                    class: "btn btn-lg btn-dark log-form-btn col-12"
+                }}) }}
+
+        {{ form_end(formMovie) }}
+    </div>
+</div>
+{% endblock %}

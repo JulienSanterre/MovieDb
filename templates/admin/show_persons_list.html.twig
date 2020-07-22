@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Interprètes -
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container col-12">
+        <div class="row margin-top-phone">
+            <div class="col-12">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Date de création</th>
+                            <th scope="col">Dernière modification</th>
+                            {% if is_granted("ROLE_ADMIN") %}
+                            <th scope="col">Edition</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for person in persons %}
+                            <tr>
+                                <th scope="row">
+                                    <a href="{{ path('person_show', {'apiId': person.apiId}) }}">
+                                        {{ person.name }}
+                                    </a>
+                                </th>
+                                <td>{{ person.createdAt|date('d/m/Y') }}</td>
+                                <td>{{ person.updatedAt|date('d/m/Y') }}</td>
+                                {% if is_granted("ROLE_ADMIN") %}
+                                <td>
+                                    <a href="{{ path('person_edit', {'apiId': person.apiId}) }}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="{{ path('person_deleteId', {'apiId': person.apiId}) }}">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

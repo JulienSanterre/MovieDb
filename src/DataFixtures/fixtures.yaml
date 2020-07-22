@@ -1,0 +1,53 @@
+#App\Entity\Genre: # namespace de l'entité
+#    genre_{1..42}: #le nombre d'iteration d'entité souhaité ici : genre_1, genre_2...genre_23
+#        name: '<word()>' <-- numberBetween(0,5), sentence(),(...)  cf (https://github.com/fzaninotto/Faker#basic-usage)
+
+
+App\Entity\Genre:
+    genre_{1..20}: # On se dit que Nelmio va créer des variables de types $genre_1 puis $genre_2… jusqu'à $genre_20
+        name: '<movieGenre()>'
+        createdAt: '<date_create()>' # Grâce à notre constructeur le createdAt n'est pas obligatoire ici
+
+App\Entity\Movie:
+    movie_{1..5000}:
+        title: '<movieTitle()>'
+        # createdAt: '<date_create()>' # La preuve du commentaire plus haut sur la même propriété
+        genres: '<numberBetween(2, 7)>x @genre_*' # @genre_* permet à Nelmio de faire référence à l'une des entités créées $genre_(un entier)
+        # genres: '3x @genre_*' # permet d'ajouter 3 genrs à notre movie
+        # grâce à <numberBetween(2, 7)>, on utilise la fonction numberBetween() de Faker qui nous choisi un nombre au hasard
+
+App\Entity\Person:
+    person_{1..10}:
+        name: '<name()>'
+        createdAt: '<date_create()>' 
+
+App\Entity\Casting:
+    casting_{1..200}:
+        role: '<firstname()>'
+        creditOrder: '<numberBetween(1, 30)>'
+        person: '@person_*'
+        movie: '@movie_*' 
+
+App\Entity\Department:
+    department_{1..8}: 
+        name (unique): '<jobDepartment()>' # méthode ajouté dans MovieAndGenreProvider par Valère (merci)
+        createdAt: '<date_create()>'
+
+App\Entity\Job:
+    job_{1..50}:
+        name: '<jobTitle()>' # méthode jobTitle présente dans Faker (merci Gaston)
+        createdAt: '<date_create()>' 
+        department: '@department_*' 
+
+App\Entity\Team:
+    team_{1..50}:
+        person: '@person_*'
+        movie: '@movie_*' 
+        job: '@job_*'
+
+App\Entity\User:
+    user_{1..10}:
+        username (unique): '<firstName()>'
+        roles: '<roles()>'
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$z0UZZHI4jroN/OeA/mK0gw\$6ecZyChMQDQYVciGeOHHP/7yYXi/kdp29OcJ/j+OKRQ'
+        # Le mot de passe est vortex

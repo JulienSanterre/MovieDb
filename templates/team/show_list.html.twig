@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container col-12">
+        <div class="row margin-top-phone">
+            <div class="col-12">
+                <h2>Tous les Team</h2>
+            </div>
+            <div class="col-12">
+                <div class="card-columns">
+                    {% for team in teams %}
+                        <div class="card">
+                            <a href="{{ path('team_show', { 'id': team.id }) }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ team.id }}
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                    </h5>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

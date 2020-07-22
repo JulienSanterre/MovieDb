@@ -1,0 +1,39 @@
+easy_admin:
+    site_name: 'MovieDb Vortex Admin'
+    design:
+        brand_color: '#F00'
+        menu: 
+            - { entity: 'Films', icon: 'film' }
+            - { entity: 'Genres', icon: 'film' }
+            - { entity: 'Personnes', icon: 'user' }
+            - { entity: 'Teams', icon: 'film' }
+            - { entity: 'Castings', icon: 'film' }
+            - { entity: 'Departements', icon: 'film' }
+            - { entity: 'Jobs', icon: 'edit' }
+            - { entity: 'Utilisateurs', icon: 'user' }
+    entities:
+       # List the entity class name you want to manage
+        Films:
+            class: App\Entity\Movie
+            list:
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
+        Genres:
+            class: App\Entity\Genre
+        Personnes :
+            class: App\Entity\Person
+        Teams:
+            class: App\Entity\Team
+        Castings:
+            class: App\Entity\Casting
+        Departements:
+            class: App\Entity\Department
+        Jobs:
+            class: App\Entity\Job
+        Utilisateurs:
+            class: App\Entity\User
+            form:
+                fields:
+                    - username
+                    - { property: 'roles', type: 'choice', type_options: { expanded: true, multiple: true, choices: { 'Administrateur': 'ROLE_ADMIN', 'Membre': 'ROLE_USER' } } }

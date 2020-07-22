@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'un Casting{% endblock %}
+
+{% block body %}
+
+{# Casting FORM #}
+<div class="container col-12">
+    <div class="row col-12">
+        {{ form_start(formCasting, { attr: { class: 'log-form col-4'}}) }}
+
+        <label for="inputCastingMovie">Film</label>
+        {{ form_widget(formCasting.movie, { attr: {  
+                    autofocus: true,
+                    id: "inputCastingMovie",
+                    class: "form-control"
+                }}) }}
+
+        <label for="inputCastingPerson">Interprète</label>
+        {{ form_widget(formCasting.person, { attr: {  
+                    autofocus: true,
+                    id: "inputCastingPerson",
+                    class: "form-control"
+                }}) }}
+
+        <label for="inputCastingRole">Rôle</label>
+        {{ form_widget(formCasting.role, { attr: {  
+                    autofocus: true,
+                    id: "inputCastingRole",
+                    class: "form-control"
+                }}) }}
+
+        <label for="inputCastingCreditOrder">Rôle</label>
+        {{ form_widget(formCasting.credit_order, { attr: {  
+                    autofocus: true,
+                    id: "inputCastingCreditOrder",
+                    class: "form-control"
+                }}) }}
+
+        {{ form_widget(formCasting.send, { attr: {
+                    class: "btn btn-lg btn-dark log-form-btn col-12"
+                }}) }}
+
+        {{ form_end(formCasting) }}
+    </div>
+</div>
+{% endblock %}

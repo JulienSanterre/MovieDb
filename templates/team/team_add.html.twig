@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'une Team{% endblock %}
+
+{% block body %}
+
+{# Team FORM #}
+<div class="container col-12">
+    <div class="row col-12">
+        {{ form_start(formTeam, { attr: { class: 'log-form col-4'}}) }}
+
+        <label for="inputTeamMovie">Film</label>
+        {{ form_widget(formTeam.movie, { attr: {  
+                    autofocus: true,
+                    id: "inputTeamMovie",
+                    class: "form-control"
+                }}) }}
+
+        <label for="inputTeamPerson">Interprète</label>
+        {{ form_widget(formTeam.person, { attr: {  
+                    autofocus: true,
+                    id: "inputTeamPerson",
+                    class: "form-control"
+                }}) }}
+
+        <label for="inputTeamJob">Métier</label>
+        {{ form_widget(formTeam.job, { attr: {  
+                    autofocus: true,
+                    id: "inputTeamJob",
+                    class: "form-control"
+                }}) }}
+
+        {{ form_widget(formTeam.send, { attr: {
+                    class: "btn btn-lg btn-dark log-form-btn col-12"
+                }}) }}
+
+        {{ form_end(formTeam) }}
+    </div>
+</div>
+{% endblock %}

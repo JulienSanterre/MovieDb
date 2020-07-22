@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Role : {{ job.name }}{% endblock %}
+
+{% block body %}
+    <div class="container col-12">
+        <div class="row margin-top-phone">
+            <div class="col-12">
+                    <table class="table table-dark ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Team</th>
+                                <th scope="col">Titre du film</th>
+                                <th scope="col">Person</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Département</th>
+                                {% if is_granted("ROLE_ADMIN") %}
+                                <th scope="col">Edition</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for team in teams %}
+                            <tr>
+                                <th scope="row">
+                                    <a href="{{ path('team_show', { 'id': team.id }) }}">
+                                        <div class="card-text">
+                                            <h5>{{ team.id }}</h5>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{ path('movie_show', { 'id': team.movie.id }) }}">
+                                        <div class="card-text">
+                                            <h5>{{ team.movie.title }}</h5>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{ path('person_show', { 'apiId': team.person.apiId }) }}">
+                                        <div class="card-text">
+                                            <h5>{{ team.person.name }}</h5>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{ path('job_show', { 'id': team.job.id }) }}">
+                                        <div class="card-text">
+                                            <h5>{{ team.job.name }}</h5>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{ path('department_show', { 'id': job.department.id }) }}">
+                                        <div class="card-text">
+                                            <h5>{{ job.department.name }}</h5>
+                                        </div>
+                                    </a>
+                                </th>
+                                {% if is_granted("ROLE_ADMIN") %}
+                                <td>
+                                    <a href="{{ path('job_edit', {'id': job.id}) }}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="{{ path('job_deleteId', {'id': job.id}) }}">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('job_list_show') }}" class="previous-link col-12 text-center">Liste des rôles</a>
+{% endblock %}
