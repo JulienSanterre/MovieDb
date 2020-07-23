@@ -16,11 +16,8 @@
       <div class="carousel-item active">
       {% set firstMovie = movies[0] %}
         <a href="{{ path('movie_show', {'id': firstMovie.id}) }}"><img src="{{ firstMovie.picture }}" class="d-block w-100" alt="{{ firstMovie.title }}"></a>
-        <div class="carousel-caption d-none d-md-block carousel-text-top">
+        <div class="carousel-caption d-none d-md-block carousel-text">
             <h5>{{ firstMovie.title }}</h5>
-        </div>
-        <div class="carousel-caption d-none d-md-block carousel-text-bottom">
-            <p>{{ firstMovie.overview }}</p>
         </div>
       </div>
       {% set counter = 0 %}
@@ -28,11 +25,8 @@
         {% if counter > 1 %}
         <div class="carousel-item">
             <a href="{{ path('movie_show', {'id': movie.id}) }}"><img src="{{ movie.picture }}" class="d-block w-100" alt="{{ movie.title }}"></a>
-            <div class="carousel-caption d-none d-md-block  carousel-text-top">
+            <div class="carousel-caption d-none d-md-block carousel-text">
                 <h5>{{ movie.title }}</h5>
-            </div>
-            <div class="carousel-caption d-none d-md-block carousel-text-bottom">
-                <p>{{ movie.overview }}</p>
             </div>
         </div>
         {% endif %}
