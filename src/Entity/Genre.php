@@ -34,7 +34,7 @@ class Genre
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Movie", mappedBy="genres")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Movie", mappedBy="genres", orphanRemoval=true)
      * @ORM\JoinColumn(nullable=true)
      */
     private $movies;

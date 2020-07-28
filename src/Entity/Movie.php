@@ -43,19 +43,20 @@ class Movie
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Genre", inversedBy="movies")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Genre", inversedBy="movies", orphanRemoval=true)
      * @ORM\JoinColumn(nullable=true)
      */
     private $genres;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Casting", mappedBy="movie", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Casting", mappedBy="movie", orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      * @ORM\OrderBy({"creditOrder" = "ASC"})
      */
     private $castings;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="movie")
+     * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="movie", orphanRemoval=true)
      */
     private $teams;
 

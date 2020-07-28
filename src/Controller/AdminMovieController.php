@@ -14,7 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 use App\Manager\ApiDataMovieManager;
-
+use App\Repository\CastingRepository;
+use App\Repository\TeamRepository;
 use App\Service\Slugger;
 
 /**
@@ -27,13 +28,18 @@ class AdminMovieController extends AbstractController
     private $flashBag;
     private $movie;
     private $slugger;
+    private $teamRepository;
+    private $castingRepository;
 
-    public function __construct(Slugger $slugger, ApiDataMovieManager $apiDataMovieManager, EntityManagerInterface $em, FlashBagInterface $flashBag)
+    public function __construct(Slugger $slugger, ApiDataMovieManager $apiDataMovieManager, EntityManagerInterface $em, FlashBagInterface $flashBag
+    ,TeamRepository $teamRepository, CastingRepository $castingRepository)
     {
         $this->apiDataMovieManager = $apiDataMovieManager;
         $this->em = $em;
         $this->slugger = $slugger;
         $this->flashBag = $flashBag;
+        $this->teamRepository = $teamRepository;
+        $this->castingRepository = $castingRepository;
     }
 
     /**

@@ -11,23 +11,40 @@
 {% if movies|length > 0 %}
 <div class="title-carroussel" >{{ genre.name }}</div>
 <div class="bd-example">
-  <div id="carouselExampleCaptions-{{ genreID }}" class="carousel slide" data-ride="carousel">
+  {% set counter = 0 %}
+  {% set firstMovie = movies[0] %}
+    <div class="mini-menu-home">
+        <!--<input type="text" name="search" placeholder="Search..">-->
+        <ul class="mini-menu-container">
+          {% for movie in genre.movies %}
+            <a href="{{ path('movie_show', {'id': movie.id}) }}"><li class= "mini-menu-list">{{ movie.title }}</li></a>
+          {% endfor %}
+        </ul>
+    </div>
+  <div id="carouselExampleCaptions-{{ genreID }}" class="carousel slide" data-ride="carousel"> 
     <div class="carousel-inner">
       <div class="carousel-item active">
-      {% set firstMovie = movies[0] %}
-        <a href="{{ path('movie_show', {'id': firstMovie.id}) }}"><img src="{{ firstMovie.picture }}" class="d-block w-100" alt="{{ firstMovie.title }}"></a>
+        <a href="{{ path('movie_show', {'id': firstMovie.id}) }}">
+        <img src="{{ firstMovie.picture }}" class="d-block w-100" alt="{{ firstMovie.title }}">
+        <div class="movie-overview"><p>{{ firstMovie.overview }}</p></div>
+        
         <div class="carousel-caption d-none d-md-block carousel-text">
             <h5>{{ firstMovie.title }}</h5>
         </div>
+        </a>
       </div>
-      {% set counter = 0 %}
+     
       {% for movie in genre.movies %}
-        {% if counter > 1 %}
+      
+        {% if counter > 1 %}     
         <div class="carousel-item">
-            <a href="{{ path('movie_show', {'id': movie.id}) }}"><img src="{{ movie.picture }}" class="d-block w-100" alt="{{ movie.title }}"></a>
+            <a href="{{ path('movie_show', {'id': movie.id}) }}">
+            <img src="{{ movie.picture }}" class="d-block w-100" alt="{{ movie.title }}">
+            <div class="movie-overview"><p>{{ movie.overview }}</p></div>
             <div class="carousel-caption d-none d-md-block carousel-text">
                 <h5>{{ movie.title }}</h5>
             </div>
+            </a>
         </div>
         {% endif %}
         {% set counter = counter + 1 %}
